@@ -1,0 +1,29 @@
+EXE_INC = \
+    -I. \
+    -I./divSchemeBlend \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/transportModels \
+    -I$(LIB_SRC)/transportModels/incompressible/singlePhaseTransportModel \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(WM_PROJECT_USER_DIR)/src/finiteVolume/lnInclude \
+    -I$(SOWFA_DIR)/src/ABLForcing/lnInclude \
+    -I$(SOWFA_DIR)/src/meshTools/lnInclude \
+    -I$(SOWFA_DIR)/src/boundaryConditions/lnInclude
+
+EXE_LIBS = \
+    -lturbulenceModels \
+    -lincompressibleTurbulenceModels \
+    -lincompressibleTransportModels \
+    -lfiniteVolume \
+    -lfvOptions \
+    -lsampling \
+    -lmeshTools \
+    -L$(FOAM_USER_LIBBIN) \
+    -lfiniteVolume_$(USER) \
+    -L$(SOWFA_DIR)/lib/$(WM_OPTIONS) \
+    -lSOWFAABLForcing \
+    -lSOWFAmeshTools \
+    -lSOWFAboundaryConditions
