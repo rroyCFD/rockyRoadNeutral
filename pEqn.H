@@ -9,6 +9,7 @@
     // The momentum equation "H" operator is the off-diagonal times the last known U.
     // In the equations it is always multiplied with inv(A).  This is HbyA.
     volVectorField HbyA(constrainHbyA(rAU*UEqn.H(), U, p_rgh));
+    tUEqn.clear();
 
     // Project HbyA to cell faces and apply a correction for time stepping scheme.
     surfaceScalarField phiHbyA

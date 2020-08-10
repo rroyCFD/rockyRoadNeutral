@@ -3,7 +3,7 @@
     // Update Coriolis forcing
     // Coriolis.update();
 
-    fvVectorMatrix UEqn
+    tmp<fvVectorMatrix> tUEqn
     (
         fvm::ddt(U)
       + fvm::div(phi, U)
@@ -14,6 +14,8 @@
      ==
         fvOptions(U)
     );
+
+    fvVectorMatrix& UEqn = tUEqn.ref();
 
     UEqn.relax();
 
