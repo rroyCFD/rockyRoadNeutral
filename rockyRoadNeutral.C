@@ -89,11 +89,11 @@ int main(int argc, char *argv[])
             // Extrapolate fields for explicit terms
             #include "extrapolateFields.H"
 
-            // Update the source terms.
-            momentumSourceTerm.update(true);
-
             while (spaece.correct())
             {
+                // Update the source terms.
+                momentumSourceTerm.update(true);
+
                 // momentum prediction
                 #include "UEqn.H"
 
