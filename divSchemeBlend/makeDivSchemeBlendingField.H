@@ -6,9 +6,9 @@
     zBlending2Old = zBlending2;
 
     blendingFactorUz1Old = blendingFactorUz1;
-    blendingFactorTz1Old = blendingFactorTz1;
+    // blendingFactorTz1Old = blendingFactorTz1;
     blendingFactorUz2Old = blendingFactorUz2;
-    blendingFactorTz2Old = blendingFactorTz2;
+    // blendingFactorTz2Old = blendingFactorTz2;
 
     useWallDistZOld = useWallDistZ;
     //------------------------------------------------------------------------//
@@ -31,16 +31,16 @@
         scalar area = mesh.magSf()[faceI];
 
         UBlendingFactor[faceI] = max(min(interpolateXY(area,faceAreaList,UBlendingList),1.0),0.0);
-        TBlendingFactor[faceI] = max(min(interpolateXY(area,faceAreaList,TBlendingList),1.0),0.0);
-    
-    
+        // TBlendingFactor[faceI] = max(min(interpolateXY(area,faceAreaList,TBlendingList),1.0),0.0);
+
+
         scalar z = 0.0;
         if (useWallDistZ)
         {
             z = dFace[faceI];
         }
         else
-        {    
+        {
             z = mesh.Cf()[faceI].z();
         }
 
@@ -52,14 +52,14 @@
             // TBlendingFactor[faceI] = blendingFactorTz2 +
             //                          0.5 * (blendingFactorTz1 - blendingFactorTz2) *
             //                         (1.0 + Foam::cos(((z - zBlending1)/(zBlending2 - zBlending1))*Foam::constant::mathematical::pi));
-            
+
             UBlendingFactor[faceI] = getBlendingCoeff(z, zBlending1, zBlending2,  blendingFactorUz1, blendingFactorUz2);
-            TBlendingFactor[faceI] = getBlendingCoeff(z, zBlending1, zBlending2,  blendingFactorTz1, blendingFactorTz2);
+            // TBlendingFactor[faceI] = getBlendingCoeff(z, zBlending1, zBlending2,  blendingFactorTz1, blendingFactorTz2);
         }
         else if ( z > zBlending2 )
         {
             UBlendingFactor[faceI] = blendingFactorUz2;
-            TBlendingFactor[faceI] = blendingFactorTz2;
+            // TBlendingFactor[faceI] = blendingFactorTz2;
         }
 
     }
@@ -68,14 +68,14 @@
     forAll(UBlendingFactor.boundaryFieldRef(), patchI)
     {
         fvsPatchField<scalar>& UBFpatch = UBlendingFactor.boundaryFieldRef()[patchI];
-        fvsPatchField<scalar>& TBFpatch = TBlendingFactor.boundaryFieldRef()[patchI];
+        // fvsPatchField<scalar>& TBFpatch = TBlendingFactor.boundaryFieldRef()[patchI];
 
         forAll(UBFpatch, faceI)
         {
             scalar area = mesh.boundary()[patchI].magSf()[faceI];
 
             UBFpatch[faceI] = max(min(interpolateXY(area,faceAreaList,UBlendingList),1.0),0.0);
-            TBFpatch[faceI] = max(min(interpolateXY(area,faceAreaList,TBlendingList),1.0),0.0);
+            // TBFpatch[faceI] = max(min(interpolateXY(area,faceAreaList,TBlendingList),1.0),0.0);
 
 
             scalar z = 0.0;
@@ -92,12 +92,12 @@
             if ((z > zBlending1) && (z < zBlending2))
             {
                 UBFpatch[faceI] = getBlendingCoeff(z, zBlending1, zBlending2,  blendingFactorUz1, blendingFactorUz2);
-                TBFpatch[faceI] = getBlendingCoeff(z, zBlending1, zBlending2,  blendingFactorTz1, blendingFactorTz2);
+                // TBFpatch[faceI] = getBlendingCoeff(z, zBlending1, zBlending2,  blendingFactorTz1, blendingFactorTz2);
             }
             else if ( z > zBlending2 )
             {
                 UBFpatch[faceI] = blendingFactorUz2;
-                TBFpatch[faceI] = blendingFactorTz2;
+                // TBFpatch[faceI] = blendingFactorTz2;
             }
         }
     }
