@@ -54,8 +54,6 @@ Description
 
 int main(int argc, char *argv[])
 {
-    #include "postProcess.H"
-
     #include "setRootCaseLists.H"
     #include "createTime.H"
     #include "createMesh.H"
@@ -63,7 +61,6 @@ int main(int argc, char *argv[])
     #include "createTimeControls.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
-    #include "computeDivergence.H"
     #include "createDivSchemeBlendingField.H"
 
     // -- Validate the turbulence fields after construction.
@@ -71,6 +68,9 @@ int main(int argc, char *argv[])
     turbulence->validate();
 
     #include "updateBoundaryConditions.H"
+    #include "computeDivergence.H"
+
+    #include "postProcess.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
     Info << nl << "Starting time loop" << endl;
