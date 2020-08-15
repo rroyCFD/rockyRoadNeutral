@@ -48,6 +48,7 @@ Description
 #include "fvOptions.H"
 #include "spaeceControl.H"
 #include "ABL.H"
+// #include "orthogonalSnGrad.H" // for RhieChow correction
 #include "defineBlendingFunction.H" // for divergence scheme blending
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -98,7 +99,8 @@ int main(int argc, char *argv[])
                 #include "UEqn.H"
 
                 // pressure correction
-                #include "pEqn.H"
+                // #include "pEqn.H"
+                #include "ppEqn.H"
 
                 // solve for turbulent transport variables and update fields
                 #include "turbulenceCorrect.H"

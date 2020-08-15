@@ -136,10 +136,20 @@ volScalarField gh("gh", g & (mesh.C() - hRef));
 Info << "Adjusting the background pressure level to agree with reference level" << endl;
 #include "adjustPressureLevel.H"
 
+
+// Create pressure correction field
+#include "createpp.H"
+
+
 // The quantity p_rgh is required on cell faces (flux) to project the velocity flux given the
 // updated pressure field, so add it to the list kept internally in OpenFOAM.
-mesh.setFluxRequired(p_rgh.name());
+// mesh.setFluxRequired(p_rgh.name());
+mesh.setFluxRequired(pp.name());
 
 
 // Allows the user to set fvOptions, such as additional source terms.
 #include "createFvOptions.H"
+
+
+// add RhieChow correction for pressure gradient and time-step
+#include "createRhieChow.H"
