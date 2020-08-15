@@ -7,7 +7,7 @@
     surfaceScalarField rAUf("rAUf", fvc::interpolate(rAU));
 
     // update mass-flux
-    phi = fvc::flux(U); 
+    phi = fvc::flux(U);
 
     #include "correctRhieChow.H"
 
@@ -15,21 +15,21 @@
     // applies the correction indirectly by setting the pressure gradient to be used in
     // the fixedFluxPressure boundary condition on p_rgh, or directly if the zeroGradient
     // boundary condition on p_rgh is used.
-    surfaceScalarField phiFixedFlux = phi;
+    // surfaceScalarField phiFixedFlux = phi;
 
-    adjustPhi(phiFixedFlux, U, p_rgh);
+    // adjustPhi(phiFixedFlux, U, p_rgh);
 
-    // update flux at zero-gradient BCs
-    forAll(p_rgh.boundaryField(), patchi)
-    {
-        if (isA<zeroGradientFvPatchScalarField>(p_rgh.boundaryField()[patchi]))
-        {
-            phi.boundaryFieldRef()[patchi] = phiFixedFlux.boundaryField()[patchi];
-        }
-    }
+    // // update flux at zero-gradient BCs
+    // forAll(p_rgh.boundaryField(), patchi)
+    // {
+    //     if (isA<zeroGradientFvPatchScalarField>(p_rgh.boundaryField()[patchi]))
+    //     {
+    //         phi.boundaryFieldRef()[patchi] = phiFixedFlux.boundaryField()[patchi];
+    //     }
+    // }
 
-    #include "updateFixedFluxPressureBC.H"
-    
+    // #include "updateFixedFluxPressureBC.H"
+
 
     // Non-orthogonal corrector loop.
     while (spaece.correctNonOrthogonal())
@@ -61,7 +61,7 @@
             fvOptions.correct(U);
 
             p_rgh += pp;
-            p_rgh.correctBoundaryConditions();    
+            p_rgh.correctBoundaryConditions();
         }
     }
 

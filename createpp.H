@@ -7,7 +7,7 @@ wordList ppbt = p_rgh.boundaryField().types();
 // if preseser BC is a fixed Gradient type, pp is the same gradient
 
 // check for fixedFluxPressure BC
-bool fixedFluxBC (false);
+// bool fixedFluxBC (false);
 
 forAll(ppbt, b)
 {
@@ -19,8 +19,9 @@ forAll(ppbt, b)
     // pp gradient is a copy of p_rgh gradient derived from fixedFluxPressure BC
     else if(ppbt[b] == "fixedFluxPressure")
     {
-        ppbt[b] = "fixedGradient";
-        fixedFluxBC = true;
+        ppbt[b] = "zeroGradient";
+        // ppbt[b] = "fixedGradient";
+        // fixedFluxBC = true;
     }
 }
 
@@ -69,30 +70,30 @@ forAll(pp.boundaryField(), patchi)
     }
 }
 
-// p_rgh fixedGrad -> pp same grad
-// p_rgh fixedFlux -> pp set zero grad for initialization, update grad at ppEqn
-forAll(p_rgh.boundaryField(), patchi)
-{
-    if(isType<fixedGradientFvPatchScalarField>(p_rgh.boundaryField()[patchi]))
-    {
-        fixedGradientFvPatchScalarField& ppGradPatch =
-            refCast<fixedGradientFvPatchScalarField>
-                (pp.boundaryFieldRef()[patchi]);
-        
-        fixedGradientFvPatchScalarField& p_rghGradPatch =
-            refCast<fixedGradientFvPatchScalarField>
-                (p_rgh.boundaryFieldRef()[patchi]);
+// // p_rgh fixedGrad -> pp same grad
+// // p_rgh fixedFlux -> pp set zero grad for initialization, update grad at ppEqn
+// forAll(p_rgh.boundaryField(), patchi)
+// {
+//     if(isType<fixedGradientFvPatchScalarField>(p_rgh.boundaryField()[patchi]))
+//     {
+//         fixedGradientFvPatchScalarField& ppGradPatch =
+//             refCast<fixedGradientFvPatchScalarField>
+//                 (pp.boundaryFieldRef()[patchi]);
 
-        ppGradPatch.gradient() = p_rghGradPatch.gradient();
-    }
-    else if(
-      isType<fixedFluxPressureFvPatchScalarField>(p_rgh.boundaryField()[patchi])
-    )
-    {
-        fixedGradientFvPatchScalarField& ppGradPatch =
-            refCast<fixedGradientFvPatchScalarField>
-                (pp.boundaryFieldRef()[patchi]);
+//         fixedGradientFvPatchScalarField& p_rghGradPatch =
+//             refCast<fixedGradientFvPatchScalarField>
+//                 (p_rgh.boundaryFieldRef()[patchi]);
 
-        ppGradPatch.gradient() = 0.0;
-    }
-}
+//         ppGradPatch.gradient() = p_rghGradPatch.gradient();
+//     }
+//     else if(
+//       isType<fixedFluxPressureFvPatchScalarField>(p_rgh.boundaryField()[patchi])
+//     )
+//     {
+//         fixedGradientFvPatchScalarField& ppGradPatch =
+//             refCast<fixedGradientFvPatchScalarField>
+//                 (pp.boundaryFieldRef()[patchi]);
+
+//         ppGradPatch.gradient() = 0.0;
+//     }
+// }
