@@ -5,10 +5,10 @@ bool RhieChow (spaece.dict().lookupOrDefault<bool>("RhieChow", true));
 Info << "RhieChow-pGrad: " << RhieChow << endl;
 
 // cell-centers connecting vector
-// const surfaceVectorField ed = mesh.delta()()/mag(mesh.delta()());
+const surfaceVectorField ed = mesh.delta()()/mag(mesh.delta()());
 
 // surface normal orthogonal gradient object
-// Foam::fv::orthogonalSnGrad<scalar> faceGradient(mesh);
+Foam::fv::orthogonalSnGrad<scalar> faceGradient(mesh);
 
 //----------------------------------------------------------------------------//
 // check for RhieChow correction for time step

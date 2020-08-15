@@ -48,7 +48,7 @@ Description
 #include "fvOptions.H"
 #include "spaeceControl.H"
 #include "ABL.H"
-// #include "orthogonalSnGrad.H" // for RhieChow correction
+#include "orthogonalSnGrad.H" // for RhieChow correction
 #include "defineBlendingFunction.H" // for divergence scheme blending
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
